@@ -1,5 +1,31 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(class="navbar navbar-inverse navbar-fixed-top" role="navigation")
+    .container-fluid
+      .navbar-header
+        button(type="button", class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse")
+          span.sr-only Toggle Navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a(class="navbar-brand", href="#") Igor ResultViewer
+
+  .container-fluid
+    .row
+      div(class="col-sm-3 col-md-2 sidebar")
+        ul(class="nav nav-sidebar")
+          li
+            a(class="btn btn-info disabled") Profile List
+        ul(class="nav nav-sidebar")
+          li(id="sidebar_profile_list")
+      div(class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main")
+        table(class="table table-striped")
+          thead
+            tr
+              th Job ID
+              th Description
+              th Kargs
+              th Time
+              th State
+          tbody(id="main_tbody")

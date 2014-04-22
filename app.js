@@ -7,13 +7,13 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var data_query = require('./routes/data_query');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
 
 app.use(favicon());
 app.use(logger('dev'));
@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/data', data_query);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
@@ -56,5 +57,5 @@ app.use(function(err, req, res, next) {
     });
 });
 
-console.log(app.get('env'));
+
 module.exports = app;
