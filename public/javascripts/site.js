@@ -36,12 +36,12 @@ $(function() {
           v = l[k];
           td = document.createElement("td");
           if (k === "state") {
-            state = document.createElement('span');
+            state = document.createElement('button');
             if (v === 1) {
-              $(state).addClass("label label-danger");
+              $(state).addClass("btn btn-danger");
               $(state).text("Failed");
             } else {
-              $(state).addClass("label label-success");
+              $(state).addClass("btn btn-success btn-sm");
               $(state).text("Passed");
             }
             $(state).attr("name", l['session_id']);
@@ -61,7 +61,7 @@ $(function() {
       return _results;
     });
     insert_row_into_table = function(start, len, data, s_id) {
-      var ary, c, ch, i, k, r, rh, s, t, tb, url, v, _i, _j, _k, _len, _len1, _ref, _ref1, _ref2, _ref3, _results;
+      var ary, btn, c, ch, d_, i, k, r, rh, s, t, tb, url, v, _i, _j, _k, _len, _len1, _ref, _ref1, _ref2, _results;
       tb = document.getElementById('main_tbody');
       rh = tb.insertRow(start);
       $(rh).addClass("info " + s_id + "_exp");
@@ -69,15 +69,15 @@ $(function() {
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         t = _ref[_i];
         ch = rh.insertCell(-1);
-        ch.innerHTML = "<span class='label label-warning'>" + t + "</span>";
+        ch.innerHTML = "<span style='font-weight: bold'>" + t + "</span>";
       }
       _results = [];
       for (i = _j = _ref1 = start + 1, _ref2 = start + len; _ref1 <= _ref2 ? _j <= _ref2 : _j >= _ref2; i = _ref1 <= _ref2 ? ++_j : --_j) {
         r = tb.insertRow(i);
         $(r).addClass("info " + s_id + "_exp");
-        _ref3 = data.shift();
-        for (k in _ref3) {
-          v = _ref3[k];
+        d_ = data.shift();
+        for (k in d_) {
+          v = d_[k];
           if (k === 'annotations' && v !== '') {
             c = r.insertCell(-1);
             ary = v.split(',');
@@ -93,7 +93,13 @@ $(function() {
           }
         }
         c = r.insertCell(-1);
-        _results.push(c.innerHTML = "<button class='btn btn-default btn-sm'>Full Log</button>");
+        btn = document.createElement('a');
+        $(btn).addClass("btn btn-default btn-sm");
+        name = d_['testcase'];
+        $(btn).attr('href', "/data/log/by/" + s_id + "/" + name);
+        $(btn).attr('target', '_blank');
+        $(btn).text("Full Log");
+        _results.push($(c).append(btn));
       }
       return _results;
     };

@@ -18,4 +18,10 @@ router.get('/details/by/:session_id', (req, res)->
   rq.detailBySessionID(res, req.params.session_id)
 )
 
+router.get('/log/by/:session_id/:name', (req, res)->
+  rq.fullLogBySessionIDCaseName(res,
+                                req.params.session_id,
+                                req.params.name)
+)
+
 module.exports = router

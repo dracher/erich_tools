@@ -1,7 +1,11 @@
 sqlite3 = require('sqlite3').verbose()
 fs = require('fs')
+log4js = require('log4js')
 async = require('async')
+
 db = new sqlite3.Database('../results.sqlite')
+logger = log4js.getLogger('dbWrapper')
+
 
 class ResultsQuery
 
@@ -30,8 +34,22 @@ class ResultsQuery
         cb.json({ret: rows})
     )
 
+  fullLogBySessionIDCaseName: (cb, sid, name) ->
+    db.all("select artifacts from artifacts where belong_to_session=\"#{sid}\" and file_name like \"%#{name}%\"",
+      (err, rows) ->
+#        console.log(err)
+#        console.log(rows)
+        try
+          cb.set('Content-Type', 'text/plain')
+          cb.send(rows[0]['artifacts'])
+        catch err
+          logger.warn("With #{sid}/#{name} do not have a corresponding artifact in database")
+          cb.set('Content-Type', 'text/plain')
+          cb.send("No log found")
+    )
+
 
 module.exports = ResultsQuery
 
 #rq = new ResultsQuery()
-#rq.detailBySessionID(null, 'icHBUuMVc2')
+#rq.fullLogBySessionIDCaseName(null, 'icHBUuMVc2', 'set_admin_password.py')

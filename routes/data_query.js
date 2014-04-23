@@ -21,4 +21,8 @@ router.get('/details/by/:session_id', function(req, res) {
   return rq.detailBySessionID(res, req.params.session_id);
 });
 
+router.get('/log/by/:session_id/:name', function(req, res) {
+  return rq.fullLogBySessionIDCaseName(res, req.params.session_id, req.params.name);
+});
+
 module.exports = router;
