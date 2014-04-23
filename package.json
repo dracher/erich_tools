@@ -17,6 +17,7 @@
     "imap": "~0.8.10",
     "sqlite3": "*",
     "express-generator": "*",
-    "async": "*"
+    "async": "*",
+    "log4js": "*"
   }
 }
