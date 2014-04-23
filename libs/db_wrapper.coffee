@@ -24,5 +24,14 @@ class ResultsQuery
         cb.json({ret: rows})
     )
 
+  detailBySessionID: (cb, session_id) ->
+    db.all("select rowid, testcase, is_success, annotations from results where belong_to_session=\"#{session_id}\"",
+      (err, rows) ->
+        cb.json({ret: rows})
+    )
+
 
 module.exports = ResultsQuery
+
+#rq = new ResultsQuery()
+#rq.detailBySessionID(null, 'icHBUuMVc2')

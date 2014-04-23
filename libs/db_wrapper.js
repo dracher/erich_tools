@@ -28,6 +28,14 @@ ResultsQuery = (function() {
     });
   };
 
+  ResultsQuery.prototype.detailBySessionID = function(cb, session_id) {
+    return db.all("select rowid, testcase, is_success, annotations from results where belong_to_session=\"" + session_id + "\"", function(err, rows) {
+      return cb.json({
+        ret: rows
+      });
+    });
+  };
+
   return ResultsQuery;
 
 })();

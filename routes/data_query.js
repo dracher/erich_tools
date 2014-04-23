@@ -17,4 +17,8 @@ router.get('/profile/by/:name', function(req, res) {
   return rq.summaryByProfile(res, req.params.name);
 });
 
+router.get('/details/by/:session_id', function(req, res) {
+  return rq.detailBySessionID(res, req.params.session_id);
+});
+
 module.exports = router;
